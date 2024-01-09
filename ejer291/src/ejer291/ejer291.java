@@ -11,58 +11,63 @@ public class ejer291 {
      4. Para cada opción, realiza las operaciones correspondientes (actualizar saldo, mostrar información, etc.).
      5. Asegúrate de validar las entradas del usuario (por ejemplo, no permitir retirar más dinero del disponible en la cuenta).*/
 	static int[] ids = {1, 2, 3};
-    static String[] contrasenas = {"1234", "5678", "abcd"};
+    static String[] contrasenas = {"Adrian", "Guerrero", "Ortega"};
     static double[] saldos = {1000.0, 2000.0, 3000.0};
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         int id;
         String contrasena;
         do {
-            System.out.print("Ingrese su ID: ");
+            System.out.print("Ingresa el id: ");
             id = scanner.nextInt();
-            System.out.print("Ingrese su contraseña: ");
+            System.out.print("Ingresa la contraseña: ");
             contrasena = scanner.next();
         } while (!login(id, contrasena));
         int opcion;
         do {
             mostrarMenu();
-            System.out.print("Seleccione una opción: ");
+            System.out.print("Selecciona la opcion: ");
             opcion = scanner.nextInt();
 
             switch (opcion) {
-                case 1:
-                    System.out.print("Ingrese la cantidad a retirar: ");
+            /*retirar*/    
+            case 1:
+                    System.out.print("¿Cuanto quieres retirar?: ");
                     double cantidadRetiro = scanner.nextDouble();
                     retirar(id, cantidadRetiro);
                     break;
-                case 2:
-                    System.out.print("Ingrese la cantidad a depositar: ");
+            /*depositar*/    
+            case 2:
+                    System.out.print("¿Cuanto quieres depositar?: ");
                     double cantidadDeposito = scanner.nextDouble();
                     depositar(id, cantidadDeposito);
-                    break;
-                case 3:
+                    break;              
+            /*ver saldo*/
+            case 3:
                     verSaldo(id);
                     break;
-                case 4:
-                    System.out.println("Gracias por utilizar nuestro cajero automático. ¡Hasta luego!");
+            /*salir*/
+            case 4:
+                    System.out.println("Gracias");
                     break;
                 default:
-                    System.out.println("Opción no válida. Por favor, seleccione una opción válida.");
+                    System.out.println("Opción no válida");
             }
         } while (opcion != 4);
-
         scanner.close();
     }
+    /*Para */
     static boolean login(int id, String contrasena) {
         for (int i = 0; i < ids.length; i++) {
             if (ids[i] == id && contrasenas[i].equals(contrasena)) {
-                System.out.println("Inicio de sesión exitoso. ¡Bienvenido!");
+                System.out.println("Has iniciado sesion");
                 return true;
             }
         }
-        System.out.println("Credenciales incorrectas. Por favor, inténtelo nuevamente.");
+        System.out.println("Id/Contraseña incorrectas");
         return false;
     }
+    /*El menu para ubicarte*/
     static void mostrarMenu() {
         System.out.println("\nMenú:");
         System.out.println("1. Retirar dinero");
@@ -70,38 +75,41 @@ public class ejer291 {
         System.out.println("3. Ver saldo");
         System.out.println("4. Salir");
     }
+    /*Para retirar*/
     static void retirar(int id, double cantidad) {
         int index = getIndexById(id);
         if (index != -1) {
             if (cantidad > 0 && cantidad <= saldos[index]) {
                 saldos[index] -= cantidad;
-                System.out.println("Retiro exitoso. Nuevo saldo: $" + saldos[index]);
+                System.out.println("Retirado, Nuevo saldo: $" + saldos[index]);
             } else {
-                System.out.println("Cantidad no válida o fondos insuficientes.");
+                System.out.println("Cantidad no válida o no tienes dinero");
             }
         } else {
-            System.out.println("ID de cuenta no encontrado.");
+            System.out.println("ID incorrecto.");
         }
     }
+    /*Para depositar*/
     static void depositar(int id, double cantidad) {
         int index = getIndexById(id);
         if (index != -1) {
             if (cantidad > 0) {
                 saldos[index] += cantidad;
-                System.out.println("Depósito exitoso. Nuevo saldo: $" + saldos[index]);
+                System.out.println("Depositado. Nuevo saldo: $" + saldos[index]);
             } else {
                 System.out.println("Cantidad no válida.");
             }
         } else {
-            System.out.println("ID de cuenta no encontrado.");
+            System.out.println("ID incorrecto.");
         }
     }
+    /*Para ver el saldo*/
     static void verSaldo(int id) {
         int index = getIndexById(id);
         if (index != -1) {
-            System.out.println("Saldo actual: $" + saldos[index]);
+            System.out.println("Saldo disponible: $" + saldos[index]);
         } else {
-            System.out.println("ID de cuenta no encontrado.");
+            System.out.println("ID incorrecto");
         }
     }
     static int getIndexById(int id) {
