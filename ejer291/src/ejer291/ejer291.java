@@ -56,7 +56,7 @@ public class ejer291 {
         } while (opcion != 4);
         scanner.close();
     }
-    /*Para */
+    /*Para verificar si has puesto bien el id o la contraseña*/
     static boolean login(int id, String contrasena) {
         for (int i = 0; i < ids.length; i++) {
             if (ids[i] == id && contrasenas[i].equals(contrasena)) {
